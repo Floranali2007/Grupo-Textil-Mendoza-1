@@ -11,18 +11,28 @@ def registrar_material():
 
     codigo = input("Código: ").strip()
 
+    if codigo == "":
+        print("El código no puede estar vacío.")
+        return
+
     for material in materiales:
 
         if material["Codigo"] == codigo:
 
-            print(
-                
-                " Ese código ya existe."
-            )
+            print("Ese código ya existe.")
             return
 
     nombre = input("Nombre: ").strip()
+
+    if nombre == "":
+        print("El nombre no puede estar vacío.")
+        return
+
     categoria = input("Categoría: ").strip()
+
+    if categoria == "":
+        print("La categoría no puede estar vacía.")
+        return
 
     try:
 
@@ -30,18 +40,28 @@ def registrar_material():
             input("Cantidad: ")
         )
 
+        if cantidad < 0:
+            print("La cantidad no puede ser negativa.")
+            return
+
         stock_minimo = float(
             input("Stock mínimo: ")
         )
 
+        if stock_minimo < 0:
+            print("El stock mínimo no puede ser negativo.")
+            return
+
     except ValueError:
 
-        print(
-            " Debe ingresar números."
-        )
+        print("Debe ingresar números.")
         return
 
     unidad = input("Unidad: ").strip()
+
+    if unidad == "":
+        print("La unidad no puede estar vacía.")
+        return
 
     fecha = datetime.now().strftime("%d/%m/%Y")
 
@@ -61,10 +81,7 @@ def registrar_material():
 
     guardar_materiales(materiales)
 
-    print(
-        " Material registrado correctamente."
-    )
-
+    print("Material registrado correctamente.")
 
 # BUSCAR MATERIAL
 def buscar_material():
@@ -75,6 +92,10 @@ def buscar_material():
         "Nombre del material: "
     ).lower().strip()
 
+    if nombre_buscar == "":
+        print("Debe ingresar un nombre.")
+        return
+
     materiales = leer_materiales()
 
     encontrado = False
@@ -83,9 +104,7 @@ def buscar_material():
 
         if material["Nombre"].lower() == nombre_buscar:
 
-            print(
-                "\n Material encontrado"
-            )
+            print("\nMaterial encontrado")
 
             print("Código:", material["Codigo"])
             print("Nombre:", material["Nombre"])
@@ -99,9 +118,8 @@ def buscar_material():
 
     if not encontrado:
 
-        print(
-            " Material no encontrado."
-        )
+        print("Material no encontrado.")
+
 
 # ACTUALIZAR STOCK
 def actualizar_stock():
@@ -111,6 +129,9 @@ def actualizar_stock():
     nombre = input(
         "Nombre del material: "
     ).lower().strip()
+    if nombre == "":
+        print("Debe ingresar un nombre.")
+        return
 
     materiales = leer_materiales()
 
@@ -126,30 +147,28 @@ def actualizar_stock():
                     input("Nueva cantidad: ")
                 )
 
+                if nueva_cantidad < 0:
+                    print("La cantidad no puede ser negativa.")
+                    return
+
                 material["Cantidad"] = nueva_cantidad
 
                 encontrado = True
 
             except ValueError:
 
-                print(
-                    " Cantidad inválida."
-                )
+                print("Cantidad inválida.")
                 return
 
     if encontrado:
 
         guardar_materiales(materiales)
 
-        print(
-            " Stock actualizado correctamente."
-        )
+        print("Stock actualizado correctamente.")
 
     else:
 
-        print(
-            " Material no encontrado."
-        )
+        print("Material no encontrado.")
 
 # VERIFICAR STOCK MÍNIMO
 def verificar_stock_minimo():
@@ -175,7 +194,7 @@ def verificar_stock_minimo():
             alerta = True
 
             print(
-                f" {material['Nombre']} SIN STOCK."
+                f"{material['Nombre']} SIN STOCK."
             )
 
         elif cantidad <= minimo:
@@ -183,14 +202,15 @@ def verificar_stock_minimo():
             alerta = True
 
             print(
-                f" {material['Nombre']} necesita reposición."
+                f"{material['Nombre']} necesita reposición."
             )
 
     if not alerta:
 
         print(
-            " No existen alertas de stock."
+            "No existen alertas de stock."
         )
+
 
 # REGISTRAR CONSUMO
 def registrar_consumo():
@@ -201,6 +221,9 @@ def registrar_consumo():
         "Nombre del material: "
     ).lower().strip()
 
+    if nombre == "":
+      print("Debe ingresar un nombre.")
+      return
     materiales = leer_materiales()
 
     encontrado = False
@@ -217,6 +240,12 @@ def registrar_consumo():
                     )
                 )
 
+                if consumo <= 0:
+                    print(
+                        "La cantidad debe ser mayor a cero."
+                    )
+                    return
+
                 cantidad_actual = float(
                     material["Cantidad"]
                 )
@@ -224,9 +253,8 @@ def registrar_consumo():
                 if consumo > cantidad_actual:
 
                     print(
-                        " No hay suficiente stock."
+                        "No hay suficiente stock."
                     )
-
                     return
 
                 material["Cantidad"] = (
@@ -238,9 +266,8 @@ def registrar_consumo():
             except ValueError:
 
                 print(
-                    " Cantidad inválida."
+                    "Cantidad inválida."
                 )
-
                 return
 
     if encontrado:
@@ -248,13 +275,13 @@ def registrar_consumo():
         guardar_materiales(materiales)
 
         print(
-            " Inventario actualizado tras confección."
+            "Inventario actualizado tras confección."
         )
 
     else:
 
         print(
-            " Material no encontrado."
+            "Material no encontrado."
         )
 
 # REGISTRAR INGRESO
@@ -265,6 +292,10 @@ def registrar_ingreso():
     nombre = input(
         "Nombre del material: "
     ).lower().strip()
+
+    if nombre == "":
+     print("Debe ingresar un nombre.")
+     return
 
     materiales = leer_materiales()
 
@@ -282,6 +313,12 @@ def registrar_ingreso():
                     )
                 )
 
+                if ingreso <= 0:
+                    print(
+                        "La cantidad debe ser mayor a cero."
+                    )
+                    return
+
                 material["Cantidad"] = (
                     float(material["Cantidad"])
                     + ingreso
@@ -292,9 +329,8 @@ def registrar_ingreso():
             except ValueError:
 
                 print(
-                    " Cantidad inválida."
+                    "Cantidad inválida."
                 )
-
                 return
 
     if encontrado:
@@ -302,14 +338,15 @@ def registrar_ingreso():
         guardar_materiales(materiales)
 
         print(
-            " Ingreso registrado correctamente."
+            "Ingreso registrado correctamente."
         )
 
     else:
 
         print(
-            " Material no encontrado."
+            "Material no encontrado."
         )
+
 
 # GENERAR REPORTE
 def generar_reporte():
@@ -341,6 +378,11 @@ def ordenar_inventario():
     print("\n--- INVENTARIO ORDENADO ---")
 
     materiales = leer_materiales()
+
+    if len(materiales) == 0:
+
+        print("No existen registros.")
+        return
 
     materiales.sort(
         key=lambda x: float(
