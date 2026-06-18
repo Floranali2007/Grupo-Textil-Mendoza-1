@@ -29,16 +29,23 @@ def leer_materiales():
 
     materiales = []
 
-    with open(
-        ARCHIVO,
-        "r",
-        encoding="utf-8"
-    ) as archivo:
+    try:
 
-        lector = csv.DictReader(archivo)
+        with open(
+            ARCHIVO,"r", encoding="utf-8" ) as archivo:
 
-        for fila in lector:
-            materiales.append(fila)
+            lector = csv.DictReader(archivo)
+
+            for fila in lector:
+                materiales.append(fila)
+
+    except FileNotFoundError:
+
+        print("No se encontró el archivo de inventario.")
+
+    except Exception as e:
+
+        print("Ocurrió un error al leer el archivo:", e)
 
     return materiales
 
@@ -46,23 +53,32 @@ def leer_materiales():
 # GUARDAR MATERIALES
 def guardar_materiales(materiales):
 
-    with open(
-        ARCHIVO, "w", newline="", encoding="utf-8") as archivo:
+    try:
 
-        campos = [
-            "Codigo",
-            "Nombre",
-            "Categoria",
-            "Cantidad",
-            "Unidad",
-            "StockMinimo",
-            "FechaIngreso"
-        ]
+        with open(
+            ARCHIVO, "w", newline="", encoding="utf-8" ) as archivo:
 
-        escritor = csv.DictWriter(
-            archivo,
-            fieldnames=campos
+            campos = [
+                "Codigo",
+                "Nombre",
+                "Categoria",
+                "Cantidad",
+                "Unidad",
+                "StockMinimo",
+                "FechaIngreso"
+            ]
+
+            escritor = csv.DictWriter(
+                archivo,
+                fieldnames=campos
+            )
+
+            escritor.writeheader()
+            escritor.writerows(materiales)
+
+    except Exception as e:
+
+        print(
+            "Ocurrió un error al guardar los datos:",
+            e
         )
-
-        escritor.writeheader()
-        escritor.writerows(materiales)
