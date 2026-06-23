@@ -9,23 +9,17 @@ def registrar_material():
 
     materiales = leer_materiales()
 
-    codigo = input("Código: ").strip()
-
-    if codigo == "":
-        print("El código no puede estar vacío.")
-        return
-
-    for material in materiales:
-
-        if material["Codigo"] == codigo:
-
-            print("Ese código ya existe.")
-            return
+    codigo = f"MAT{len(materiales)+1:03d}"
 
     nombre = input("Nombre: ").strip()
 
     if nombre == "":
         print("El nombre no puede estar vacío.")
+        return
+    
+    if not nombre.replace(" ", "").isalpha():
+
+        print("Solo se permiten letras.")
         return
 
     categoria = input("Categoría: ").strip()
