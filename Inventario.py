@@ -89,6 +89,9 @@ def buscar_material():
     if nombre_buscar == "":
         print("Debe ingresar un nombre.")
         return
+    if not nombre_buscar.replace(" ", "").isalpha():
+         print("Solo se permiten letras.")
+         return
 
     materiales = leer_materiales()
 
@@ -126,6 +129,9 @@ def actualizar_stock():
     if nombre == "":
         print("Debe ingresar un nombre.")
         return
+    if not nombre.replace(" ", "").isalpha():
+         print("Solo se permiten letras.")
+         return
 
     materiales = leer_materiales()
 
@@ -216,8 +222,11 @@ def registrar_consumo():
     ).lower().strip()
 
     if nombre == "":
-      print("Debe ingresar un nombre.")
-      return
+         print("Debe ingresar un nombre.")
+         return
+    if not nombre.replace(" ", "").isalpha():
+         print("Solo se permiten letras.")
+         return
     materiales = leer_materiales()
 
     encontrado = False
@@ -288,8 +297,11 @@ def registrar_ingreso():
     ).lower().strip()
 
     if nombre == "":
-     print("Debe ingresar un nombre.")
-     return
+         print("Debe ingresar un nombre.")
+         return
+    if not nombre.replace(" ", "").isalpha():
+         print("Solo se permiten letras.")
+         return
 
     materiales = leer_materiales()
 
