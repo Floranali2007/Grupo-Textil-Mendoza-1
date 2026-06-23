@@ -212,10 +212,10 @@ def verificar_stock_minimo():
         )
 
 
-# REGISTRAR CONSUMO
-def registrar_consumo():
+# REGISTRAR SALIDA DE MATERIAL
+def registrar_salida():
 
-    print("\n--- REGISTRAR CONSUMO ---")
+    print("\n--- REGISTRAR SALIDA ---")
 
     nombre = input(
         "Nombre del material: "
@@ -288,6 +288,7 @@ def registrar_consumo():
         )
 
 # REGISTRAR INGRESO
+# REGISTRAR INGRESO
 def registrar_ingreso():
 
     print("\n--- REGISTRAR INGRESO ---")
@@ -297,11 +298,12 @@ def registrar_ingreso():
     ).lower().strip()
 
     if nombre == "":
-         print("Debe ingresar un nombre.")
-         return
+        print("Debe ingresar un nombre.")
+        return
+
     if not nombre.replace(" ", "").isalpha():
-         print("Solo se permiten letras.")
-         return
+        print("Solo se permiten letras.")
+        return
 
     materiales = leer_materiales()
 
@@ -325,17 +327,31 @@ def registrar_ingreso():
                     )
                     return
 
+                costo = float(
+                    input(
+                        "Costo del ingreso: "
+                    )
+                )
+
+                if costo < 0:
+                    print(
+                        "Costo inválido."
+                    )
+                    return
+
                 material["Cantidad"] = (
                     float(material["Cantidad"])
                     + ingreso
                 )
+
+                material["Costo"] = costo
 
                 encontrado = True
 
             except ValueError:
 
                 print(
-                    "Cantidad inválida."
+                    "Cantidad o costo inválido."
                 )
                 return
 
@@ -352,7 +368,6 @@ def registrar_ingreso():
         print(
             "Material no encontrado."
         )
-
 
 # GENERAR REPORTE
 def generar_reporte():

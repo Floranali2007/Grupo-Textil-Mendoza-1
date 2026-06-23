@@ -20,7 +20,8 @@ def crear_archivo():
                 "Cantidad",
                 "Unidad",
                 "StockMinimo",
-                "FechaIngreso"
+                "FechaIngreso",
+                "Costo"
             ])
 
 
@@ -65,7 +66,8 @@ def guardar_materiales(materiales):
                 "Cantidad",
                 "Unidad",
                 "StockMinimo",
-                "FechaIngreso"
+                "FechaIngreso",
+                "Costo"
             ]
 
             escritor = csv.DictWriter(
