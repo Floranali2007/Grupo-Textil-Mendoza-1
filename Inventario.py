@@ -10,7 +10,7 @@ def registrar_material():
     materiales = leer_materiales()
 
     codigo = f"MAT{len(materiales)+1:03d}"
-
+    print("Código generado:", codigo)
     nombre = input("Nombre: ").strip()
 
     if nombre == "":
@@ -21,12 +21,39 @@ def registrar_material():
 
         print("Solo se permiten letras.")
         return
+    for material in materiales:
 
-    categoria = input("Categoría: ").strip()
+        if material["Nombre"].lower() == nombre.lower():
 
-    if categoria == "":
-        print("La categoría no puede estar vacía.")
-        return
+             print("El material ya se encuentra registrado.")
+             return
+    print("\nCategorías disponibles:")
+    print("1. Tela")
+    print("2. Tinta")
+    print("3. Vinil")
+    print("4. Papel")
+    print("5. Accesorio")
+
+    opcion_categoria = input("Seleccione una categoría: ")
+
+    if opcion_categoria == "1":
+        categoria = "Tela"
+
+    elif opcion_categoria == "2":
+          categoria = "Tinta"
+
+    elif opcion_categoria == "3":
+         categoria = "Vinil"
+
+    elif opcion_categoria == "4":
+         categoria = "Papel"
+
+    elif opcion_categoria == "5":
+         categoria = "Accesorio"
+
+    else:
+     print("Categoría inválida.")
+     return
 
     try:
 
@@ -36,6 +63,9 @@ def registrar_material():
 
         if cantidad < 0:
             print("La cantidad no puede ser negativa.")
+            return
+        if cantidad > 300:
+            print("La cantidad no puede ser mayor a 300.")
             return
 
         stock_minimo = float(
@@ -50,12 +80,29 @@ def registrar_material():
 
         print("Debe ingresar números.")
         return
+    print("\nUnidades disponibles:")
+    print("1. Metros")
+    print("2. Kilogramos")
+    print("3. Mililitros")
+    print("4. Unidades")
 
-    unidad = input("Unidad: ").strip()
+    opcion_unidad = input("Seleccione una unidad: ")
 
-    if unidad == "":
-        print("La unidad no puede estar vacía.")
-        return
+    if opcion_unidad == "1":
+         unidad = "Metros"
+
+    elif opcion_unidad == "2":
+         unidad = "Kilogramos"
+
+    elif opcion_unidad == "3":
+         unidad = "Mililitros"
+
+    elif opcion_unidad == "4":
+         unidad = "Unidades"
+
+    else:
+     print("Unidad inválida.")
+     return
 
     fecha = datetime.now().strftime("%d/%m/%Y")
 
@@ -67,7 +114,8 @@ def registrar_material():
         "Cantidad": cantidad,
         "Unidad": unidad,
         "StockMinimo": stock_minimo,
-        "FechaIngreso": fecha
+        "FechaIngreso": fecha,
+        "Costo": ""
 
     }
 
@@ -150,6 +198,9 @@ def actualizar_stock():
                 if nueva_cantidad < 0:
                     print("La cantidad no puede ser negativa.")
                     return
+                if nueva_cantidad > 300:
+                    print("La cantidad no puede ser mayor a 300.")
+                    return
 
                 material["Cantidad"] = nueva_cantidad
 
@@ -212,10 +263,10 @@ def verificar_stock_minimo():
         )
 
 
-# REGISTRAR SALIDA DE MATERIAL
-def registrar_salida():
+# REGISTRAR SALIDA DE MATERIAL para confección
+def registrar_salida_de_material_para_confección():
 
-    print("\n--- REGISTRAR SALIDA ---")
+    print("\n--- REGISTRAR SALIDA PARA CONFECCIÓN ---")
 
     nombre = input(
         "Nombre del material: "
@@ -248,6 +299,15 @@ def registrar_salida():
                         "La cantidad debe ser mayor a cero."
                     )
                     return
+                if consumo > 300:
+                     print("La cantidad utilizada no puede ser mayor a 300.")
+                     return
+
+                cantidad_actual = float(material["Cantidad"])
+
+                if consumo > cantidad_actual:
+                     print("No hay suficiente stock.")
+                     return
 
                 cantidad_actual = float(
                     material["Cantidad"]
@@ -288,7 +348,6 @@ def registrar_salida():
         )
 
 # REGISTRAR INGRESO
-# REGISTRAR INGRESO
 def registrar_ingreso():
 
     print("\n--- REGISTRAR INGRESO ---")
@@ -325,6 +384,9 @@ def registrar_ingreso():
                     print(
                         "La cantidad debe ser mayor a cero."
                     )
+                    return
+                if ingreso > 300:
+                    print("La cantidad ingresada no puede ser mayor a 300.")
                     return
 
                 costo = float(

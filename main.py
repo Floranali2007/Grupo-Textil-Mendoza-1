@@ -16,7 +16,7 @@ while True:
     print("2. Buscar material")
     print("3. Actualizar stock")
     print("4. Verificar stock mínimo")
-    print("5. Registrar salida")
+    print("5. Registrar salida de material para confección")
     print("6. Registrar ingreso")
     print("7. Generar reporte")
     print("8. Ordenar inventario")
@@ -42,7 +42,7 @@ while True:
 
     elif opcion == "5":
 
-        registrar_salida()
+        registrar_salida_de_material_para_confección()
 
     elif opcion == "6":
 
