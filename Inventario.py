@@ -85,6 +85,8 @@ def registrar_material():
     print("2. Kilogramos")
     print("3. Mililitros")
     print("4. Unidades")
+    print("5. Litros")
+    print("6. Rollos")
 
     opcion_unidad = input("Seleccione una unidad: ")
 
@@ -99,6 +101,10 @@ def registrar_material():
 
     elif opcion_unidad == "4":
          unidad = "Unidades"
+    elif opcion_unidad == "5":
+         unidad = "Litros"
+    elif opcion_unidad == "6":
+         unidad = "Rollos"
 
     else:
      print("Unidad inválida.")
