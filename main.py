@@ -42,7 +42,7 @@ while True:
 
     elif opcion == "5":
 
-        registrar_salida_de_material_para_confección()
+        registrar_salida_de_material_para_confeccion()
 
     elif opcion == "6":
 

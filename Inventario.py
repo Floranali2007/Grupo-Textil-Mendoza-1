@@ -263,8 +263,8 @@ def verificar_stock_minimo():
         )
 
 
-# REGISTRAR SALIDA DE MATERIAL para confección
-def registrar_salida_de_material_para_confección():
+# REGISTRAR SALIDA DE MATERIAL para confeccion
+def registrar_salida_de_material_para_confeccion():
 
     print("\n--- REGISTRAR SALIDA PARA CONFECCIÓN ---")
 
@@ -312,13 +312,6 @@ def registrar_salida_de_material_para_confección():
                 cantidad_actual = float(
                     material["Cantidad"]
                 )
-
-                if consumo > cantidad_actual:
-
-                    print(
-                        "No hay suficiente stock."
-                    )
-                    return
 
                 material["Cantidad"] = (
                     cantidad_actual - consumo
@@ -388,6 +381,11 @@ def registrar_ingreso():
                 if ingreso > 300:
                     print("La cantidad ingresada no puede ser mayor a 300.")
                     return
+                cantidad_actual = float(material["Cantidad"])
+
+                if cantidad_actual + ingreso > 300:
+                     print("El stock total no puede superar las 300 unidades.")
+                     return
 
                 costo = float(
                     input(
