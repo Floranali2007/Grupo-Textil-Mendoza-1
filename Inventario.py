@@ -404,22 +404,21 @@ def registrar_ingreso():
                         "Costo inválido."
                     )
                     return
+                if costo >1000:
+                    print ("El costo no puede superar los 1000 soles.")
+                    return
+            except ValueError:
+                print("Debe ingresar un valor numérico")
+                return
 
-                material["Cantidad"] = (
+            material["Cantidad"] = (
                     float(material["Cantidad"])
                     + ingreso
                 )
 
-                material["Costo"] = costo
+            material["Costo"] = costo
 
-                encontrado = True
-
-            except ValueError:
-
-                print(
-                    "Cantidad o costo inválido."
-                )
-                return
+            encontrado = True
 
     if encontrado:
 
